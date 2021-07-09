@@ -58,9 +58,12 @@ of the MAC
 
 This message can be used as a trigger for HomeAssistant, for example.
 
+These two `automation` entries read directly from the MQTT topic and
+don't need any sensor or switch entries created.
+
 ```
 - alias: Back Doorbell
-  initial_state: false
+  initial_state: true
   trigger:
     - platform: mqtt
       topic: doorbell/123456/back_doorbell
@@ -69,7 +72,7 @@ This message can be used as a trigger for HomeAssistant, for example.
     ....
 
 - alias: Front Doorbell
-  initial_state: false
+  initial_state: true
   trigger:
     - platform: mqtt
       topic: doorbell/123456/front_doorbell
@@ -80,3 +83,12 @@ This message can be used as a trigger for HomeAssistant, for example.
 
 You could flash lights (helpful for deaf people), alert your phone (if
 you're out of home), popup a message on a smart TV...
+
+In the Logbook you'll see entries such as
+
+```
+Back Doorbell has been triggered by mqtt topic doorbell/123456/back_doorbell
+6:59:19 PM - 
+```
+
+You now have a log of every time your doorbell was pressed!
