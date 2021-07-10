@@ -99,6 +99,12 @@ void setup()
   {
     delay(1000);
     Serial.print(++i); Serial.print(' ');
+    // Sometimes the ESP32 just fails to connect!  Reboot if unsuccesful
+    if (i > 10 )
+    {
+      Serial.print("Give up; reboot!");
+      ESP.restart();
+    }
   }
 
   Serial.println('\n');
@@ -156,7 +162,9 @@ void loop()
 
     if (client.connect(clientId.c_str()))
     {
-      log_msg("MQTT connected.  I am " + WiFi.localIP().toString());
+      String msg="MQTT connected.  I am " + WiFi.localIP().toString();
+      log_msg(msg);
+      client.publish(mqttDebug, msg.c_str());
     }
     else
     {
