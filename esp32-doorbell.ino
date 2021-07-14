@@ -162,7 +162,11 @@ void loop()
 
     if (client.connect(clientId.c_str()))
     {
-      String msg="MQTT connected.  I am " + WiFi.localIP().toString();
+      String msg="MQTT connected at ";
+      time_t now = time(nullptr);
+      msg += ctime(&now);
+      msg.trim();
+      msg += ".  I am " + WiFi.localIP().toString();
       log_msg(msg);
       client.publish(mqttDebug, msg.c_str());
     }
